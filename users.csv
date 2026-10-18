@@ -1,0 +1,3 @@
+id,username,password_hash,role
+1,bob,pbkdf2:sha256:600000$8jtcGLjZ8RzbPufM$a505cc32ec7ab53192c4377c69855c41bed3e3d385045f61a4411ac3cc5ccf4d,admin
+2,alice,pbkdf2:sha256:600000$8jtcGLjZ8RzbPufM$a505cc32ec7ab53192c4377c69855c41bed3e3d385045f61a4411ac3cc5ccf4d,read_only

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Settings - Contact Manager{% endblock %}
+
+{% block content %}
+<div id="app-sidebar">
+    <div class="sidebar-header">
+        <h1 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Settings</h1>
+        <div class="ribbon-controls">
+            <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()"></button>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <button class="collapse-toggle" onclick="toggleSidebar()">≡</button>
+        </div>
+    </div>
+    <div class="sidebar-content">
+        <div class="sidebar-app">
+            <a href="{{ url_for('dashboard') }}">📋 Contact Manager</a>
+        </div>
+        <div class="sidebar-app active">
+            <span>⚙️ Settings</span>
+        </div>
+    </div>
+</div>
+
+<div id="app-main-area">
+    <div id="app-content">
+        <div class="container">
+            <h2 style="margin-bottom: 1.5rem;">Settings</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+                {{ session.username }} ({{ session.role.replace('_', ' ').title() }})
+            </p>
+
+            <div class="form-group">
+                <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-primary);">Application Preferences</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Customize your application experience.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="notifications">Enable Notifications</label>
+                <input type="checkbox" id="notifications" name="notifications" checked style="width: auto;">
+            </div>
+
+            <div class="form-group">
+                <label for="auto-save">Auto-save Changes</label>
+                <input type="checkbox" id="auto-save" name="auto-save" checked style="width: auto;">
+            </div>
+
+            <div class="form-group">
+                <label for="items-per-page">Items Per Page</label>
+                <select id="items-per-page" style="width: 100%; padding: 0.75rem; border: 1px solid var(--input-border); border-radius: 4px; background: var(--input-bg); color: var(--text-primary);">
+                    <option>10</option>
+                    <option selected>20</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </div>
+
+            <hr style="margin: 2rem 0;">
+
+            <div class="form-group">
+                <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-primary);">About</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <strong>Application:</strong> Contact Manager<br>
+                    <strong>Version:</strong> 1.0.0<br>
+                    <strong>Designed with:</strong> Flask, SQLite, and modern web technologies
+                </p>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button style="flex: 1;">Save Settings</button>
+                <button type="button" class="btn-secondary" style="flex: 1;">Reset to Default</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-status-line">
+        <span>Settings v1.0 (Mock)</span>
+        <span style="font-size: 0.8rem;">Configuration ready</span>
+    </div>
+</div>
+{% endblock %}

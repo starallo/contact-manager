@@ -3,60 +3,82 @@
 {% block title %}Dashboard - Contact Manager{% endblock %}
 
 {% block content %}
-<div class="navbar">
-    <h1>Contact Manager</h1>
-    <div class="navbar-right">
-        <span>{{ session.username }} ({{ session.role.replace('_', ' ').title() }})</span>
-        <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()"></button>
-        <a href="{{ url_for('logout') }}">Logout</a>
+<div id="app-sidebar">
+    <div class="sidebar-header">
+        <h1>Contact Manager</h1>
+        <div class="ribbon-controls">
+            <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()"></button>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <button class="collapse-toggle" onclick="toggleSidebar()">≡</button>
+        </div>
+    </div>
+    <div class="sidebar-content">
+        <div class="sidebar-app active">
+            <span>📋 Contact Manager</span>
+        </div>
+        <div class="sidebar-app">
+            <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        </div>
     </div>
 </div>
 
-<div class="container dashboard-wide">
-    <h2 style="margin-bottom: 1.5rem;">Contacts</h2>
+<div id="app-main-area">
+    <div id="app-content">
+        <div class="container dashboard-wide">
+            <h2 style="margin-bottom: 1.5rem;">Contacts</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                {{ session.username }} ({{ session.role.replace('_', ' ').title() }})
+            </p>
 
-    {% if session.role == 'admin' %}
-        <a href="{{ url_for('add_contact') }}">
-            <button style="margin-bottom: 1rem;">+ Add New Contact</button>
-        </a>
-    {% endif %}
+            {% if session.role == 'admin' %}
+                <a href="{{ url_for('add_contact') }}">
+                    <button style="margin-bottom: 1rem;">+ Add New Contact</button>
+                </a>
+            {% endif %}
 
-    {% if contacts %}
-        <table>
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Mobile Phone</th>
-                    {% if session.role == 'admin' %}
-                        <th>Actions</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for contact in contacts %}
-                    <tr>
-                        <td>{{ contact.first_name }}</td>
-                        <td>{{ contact.last_name }}</td>
-                        <td>{{ contact.mobile_phone }}</td>
-                        {% if session.role == 'admin' %}
-                            <td>
-                                <div class="actions">
-                                    <a href="{{ url_for('edit_contact', contact_id=contact.id) }}">
-                                        <button class="btn-small btn-secondary">Edit</button>
-                                    </a>
-                                    <form method="post" action="{{ url_for('delete_contact_route', contact_id=contact.id) }}" style="display: inline;">
-                                        <button type="submit" class="btn-small btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                    </form>
-                                </div>
-                            </td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p style="color: #666; text-align: center; padding: 2rem;">No contacts found.</p>
-    {% endif %}
+            {% if contacts %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Mobile Phone</th>
+                            {% if session.role == 'admin' %}
+                                <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contact in contacts %}
+                            <tr>
+                                <td>{{ contact.first_name }}</td>
+                                <td>{{ contact.last_name }}</td>
+                                <td>{{ contact.mobile_phone }}</td>
+                                {% if session.role == 'admin' %}
+                                    <td>
+                                        <div class="actions">
+                                            <a href="{{ url_for('edit_contact', contact_id=contact.id) }}">
+                                                <button class="btn-small btn-secondary">Edit</button>
+                                            </a>
+                                            <form method="post" action="{{ url_for('delete_contact_route', contact_id=contact.id) }}" style="display: inline;">
+                                                <button type="submit" class="btn-small btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">No contacts found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="app-status-line">
+        <span>Contact Manager v1.0</span>
+        <span style="font-size: 0.8rem;">Ready</span>
+    </div>
 </div>
 {% endblock %}

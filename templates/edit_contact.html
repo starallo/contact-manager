@@ -3,40 +3,62 @@
 {% block title %}Edit Contact - Contact Manager{% endblock %}
 
 {% block content %}
-<div class="navbar">
-    <h1>Contact Manager</h1>
-    <div class="navbar-right">
-        <span>{{ session.username }} ({{ session.role.replace('_', ' ').title() }})</span>
-        <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()"></button>
-        <a href="{{ url_for('logout') }}">Logout</a>
+<div id="app-sidebar">
+    <div class="sidebar-header">
+        <h1>Contact Manager</h1>
+        <div class="ribbon-controls">
+            <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()"></button>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <button class="collapse-toggle" onclick="toggleSidebar()">≡</button>
+        </div>
+    </div>
+    <div class="sidebar-content">
+        <div class="sidebar-app active">
+            <a href="{{ url_for('dashboard') }}">📋 Contact Manager</a>
+        </div>
+        <div class="sidebar-app">
+            <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        </div>
     </div>
 </div>
 
-<div class="container">
-    <h2 style="margin-bottom: 1.5rem;">Edit Contact</h2>
+<div id="app-main-area">
+    <div id="app-content">
+        <div class="container">
+            <h2 style="margin-bottom: 1.5rem;">Edit Contact</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                {{ session.username }} ({{ session.role.replace('_', ' ').title() }})
+            </p>
 
-    <form method="post">
-        <div class="form-group">
-            <label for="first_name">First Name</label>
-            <input type="text" id="first_name" name="first_name" value="{{ contact.first_name }}" required>
-        </div>
+            <form method="post">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" value="{{ contact.first_name }}" required>
+                </div>
 
-        <div class="form-group">
-            <label for="last_name">Last Name</label>
-            <input type="text" id="last_name" name="last_name" value="{{ contact.last_name }}" required>
-        </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" value="{{ contact.last_name }}" required>
+                </div>
 
-        <div class="form-group">
-            <label for="mobile_phone">Mobile Phone</label>
-            <input type="tel" id="mobile_phone" name="mobile_phone" value="{{ contact.mobile_phone }}" required>
-        </div>
+                <div class="form-group">
+                    <label for="mobile_phone">Mobile Phone</label>
+                    <input type="tel" id="mobile_phone" name="mobile_phone" value="{{ contact.mobile_phone }}" required>
+                </div>
 
-        <div style="display: flex; gap: 1rem;">
-            <button type="submit" style="flex: 1;">Update Contact</button>
-            <a href="{{ url_for('dashboard') }}" style="flex: 1;">
-                <button type="button" class="btn-secondary" style="width: 100%;">Cancel</button>
-            </a>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" style="flex: 1;">Update Contact</button>
+                    <a href="{{ url_for('dashboard') }}" style="flex: 1;">
+                        <button type="button" class="btn-secondary" style="width: 100%;">Cancel</button>
+                    </a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+
+    <div id="app-status-line">
+        <span>Contact Manager v1.0</span>
+        <span style="font-size: 0.8rem;">Editing contact...</span>
+    </div>
 </div>
 {% endblock %}

@@ -148,6 +148,12 @@ def dashboard():
     return render_template('dashboard.html', contacts=[c.to_dict() for c in contacts])
 
 
+@app.route('/settings')
+@login_required
+def settings():
+    return render_template('settings.html')
+
+
 @app.route('/contact/add', methods=['GET', 'POST'])
 @admin_required
 def add_contact():

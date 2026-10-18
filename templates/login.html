@@ -3,6 +3,11 @@
 {% block title %}Login - Contact Manager{% endblock %}
 
 {% block content %}
+<script>
+    document.body.classList.add('login-page');
+    const sidebar = document.getElementById('app-sidebar');
+    if (sidebar) sidebar.style.display = 'none';
+</script>
 <div class="container">
     <h1 style="margin-bottom: 2rem; color: #333; text-align: center;">Contact Manager</h1>
 
